@@ -2,6 +2,7 @@ Losap::Application.routes.draw do
   resources :members do
     resources :sleep_ins
     resources :standbys
+    resources :collateraldutys
   end
 
   match '/members/:id/:year/:month' => 'members#show', :as => :member_month

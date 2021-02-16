@@ -1,9 +1,11 @@
 %td<
   %ul          
-    - report.sleep_ins_and_standbys_for_member(member, month_number(n)).each do |s|
+    - report.sleep_ins_and_standbys_and_collateraldutys_for_member(member, month_number(n)).each do |s|
       %li<
         = s.date.day.ordinalize + ":"
         - if s.is_a?(SleepIn)
           = s.unit + " Sleep-In"
-        - else
+        - if s.is_a?(Standby)
           = "#{standby_time(s.start_time)} - #{standby_time(s.end_time)} Standby"
+        - else
+          = "#{collateralduty_time(s.start_time)} - #{collateralduty_time(s.end_time)} Collateralduty"

@@ -48,10 +48,22 @@ class Report
     traverse_hash(standbys, member, :points)
   end
 
-  def sleep_ins_and_standbys_for_member(member, month)
-    unless @sleep_ins_and_standbys
-      @sleep_ins_and_standbys = members.inject({}) do |member_hash, member|
-        list = (sleep_ins_for_member(member) + standbys_for_member(member)).sort
+  def collateraldutys
+    @collateraldutys ||= build_hash(monthly? ? Collateralduty.by_month(@month) : Collateralduty.by_year(@year))
+  end
+
+  def collateraldutys_for_member(member)
+    collateraldutys[member.id] ? collateraldutys[member.id] : []
+  end
+
+  def collateralduty_points(member)
+    traverse_hash(collateraldutys, member, :points)
+  end
+
+  def sleep_ins_and_standbys_and_collateraldutys_for_member(member, month)
+    unless @sleep_ins_and_standbys_and_collateraldutys
+      @sleep_ins_and_standbys_and_collateraldutys = members.inject({}) do |member_hash, member|
+        list = (sleep_ins_for_member(member) + standbys_for_member(member) + collateraldutys_for_member(member)).sort
         months_hash = (1 .. 12).inject({}) do |hash, n|
           hash.merge({(year + (n - 1).months) => []})
         end
@@ -60,7 +72,7 @@ class Report
       end
     end
     
-    @sleep_ins_and_standbys[member][month]
+    @sleep_ins_and_standbys_and_collateraldutys[member][month]
   end
   
   def hours(member)

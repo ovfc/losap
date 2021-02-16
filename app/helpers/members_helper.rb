@@ -25,17 +25,17 @@ module MembersHelper
     end
   end
 
-  def render_sleep_ins_and_standbys(member, month)
-    sleep_ins_and_standbys = member.sleep_ins_and_standbys(:month => month)
-    if sleep_ins_and_standbys.empty?
-      content_tag 'tr', content_tag('td', 'No sleep-ins or standbys this month', :colspan => "3")
+  def render_sleep_ins_and_standbys_and_collateraldutys(member, month)
+    sleep_ins_and_standbys_and_collateraldutys = member.sleep_ins_and_standbys_and_collateraldutys(:month => month)
+    if sleep_ins_and_standbys_and_collateraldutys.empty?
+      content_tag 'tr', content_tag('td', 'No sleep-ins or standbys or collaterdutys this month', :colspan => "4")
     else
-      sleep_ins_and_standbys_helper(sleep_ins_and_standbys)
+      sleep_ins_and_standbys_and_collateraldutys_helper(sleep_ins_and_standbys_and_collateraldutys)
     end
   end
 
   private
-  def sleep_ins_and_standbys_helper(list)
+  def sleep_ins_and_standbys_and_collateraldutys_helper(list)
     ret = ""
 
     until list.empty? do
@@ -55,10 +55,28 @@ module MembersHelper
         
         if list.first && list.first.date == o.date
           ret += "  <td>#{render :partial => list.shift}</td>\n"
+          ret += "  <td>#{render :partial => list.shift}</td>\n"
+        else
+          ret += "  <td>&nbsp;</td>"
+          ret += "  <td>&nbsp;</td>\n"
+        end
+      elsif o.is_a? Collateralduty
+        ret += "  <td>&nbsp;</td>\n"
+        ret += "  <td>" + render(:partial => o)
+        
+        while (list.first and list.first.is_a?(Collateralduty) and
+                list.first.date == o.date) do
+          ret += "<br/>\n" + render(:partial => list.shift)
+        end
+        
+        ret += "</td>\n"
+        if list.first && list.first.date == o.date
+          ret += "  <td>#{render :partial => list.shift}</td>\n"
         else
           ret += "  <td>&nbsp;</td>"
         end
       else
+        ret += "  <td>&nbsp;</td>\n"
         ret += "  <td>&nbsp;</td>\n"
         ret += "  <td>#{render :partial => o}</td>\n"
       end

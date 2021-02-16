@@ -7,6 +7,7 @@ class Member < ActiveRecord::Base
 
   has_many :sleep_ins, :order => 'date ASC', :dependent => :destroy
   has_many :standbys, :order => 'start_time ASC', :dependent => :destroy
+  has_many :collateraldutys, :order => 'start_time ASC', :dependent => :destroy
 
   cattr_reader :per_page
   @@per_page = 15
@@ -22,34 +23,38 @@ class Member < ActiveRecord::Base
     end.uniq
   end
 
-  def sleep_ins_and_standbys(params={})
-    sleep_ins = standbys = nil
+  def sleep_ins_and_standbys_and_collateraldutys(params={})
+    sleep_ins = standbys = collateraldutys = nil
     if params[:month]
       sleep_ins = self.sleep_ins.by_month(params[:month])
       standbys = self.standbys.by_month(params[:month])
+      collateraldutys = self.collateraldutys.by_month(params[:month])
     elsif params[:year]
       sleep_ins = self.sleep_ins.by_year(params[:year])
       standbys = self.standbys.by_year(params[:year])
+      collateraldutys = self.by_year(params[:year])
     else
       return nil
     end
 
-    (sleep_ins + standbys).sort
+    (sleep_ins + standbys + collateraldutys).sort
   end
   
   def hours(params={})
-    sleep_ins = standbys = nil
+    sleep_ins = standbys = collateraldutys = nil
     if params[:month]
       sleep_ins = self.sleep_ins.by_month(params[:month])
       standbys = self.standbys.by_month(params[:month])
+      collateraldutys = self.collateraldutys.by_month(params[:month])
     elsif params[:year]
       sleep_ins = self.sleep_ins.by_year(params[:year])
       standbys = self.standbys.by_year(params[:year])
+      collateraldutys = self.collateraldutys.by_year(params[:year])
     else
       return nil
     end
 
-    (sleep_ins + standbys).inject(0) do |total, s|
+    (sleep_ins + standbys + collateraldutys).inject(0) do |total, s|
       total + s.hours
     end
   end
@@ -72,6 +77,17 @@ class Member < ActiveRecord::Base
     return nil if standbys.nil?
 
     standbys.inject(0) do |total, s|
+      total + s.points
+    end
+  end
+
+  def collateralduty_points(params={})
+    collateraldutys = nil
+    collateraldutys = self.collateraldutys.by_month(params[:month]) if params[:month]
+    collateraldutys = self.collateraldutys.by_year(params[:year]) if params[:year]
+    return nil if collateraldutys.nil?
+
+    collateraldutys.inject(0) do |total, s|
       total + s.points
     end
   end

@@ -1,0 +1,28 @@
+- if member.badgeno == '502863'
+  - content_for :head do
+    = javascript_include_tag 'runaway'
+
+%h2 #{member.lastname}, #{member.firstname} (##{member.badgeno})
+%p The current time is #{Time.now.strftime("%H:%M")}
+%p Add Collateralduty:
+
+= form_for([member, collateralduty]) do |f|
+  = f.error_messages
+  %p
+    #{f.label :start_time, 'Start'}:
+    = f.text_field :start_date, :size => 10, :class => 'date',
+                   :value => format_date_for_collateralduty(Date.today)
+    &nbsp;
+    = f.time_select :start_time, :minute_step => 15,
+                    :default => Time.parse('7:00')
+  %hr#newcollateraldutydivider
+  %p
+    #{f.label :end_time, 'End'}:
+    = f.text_field :end_date, :size => 10, :class => 'date',
+                   :value => format_date_for_collateralduty(Date.today)
+    &nbsp;
+    = f.time_select :end_time, :minute_step => 15,
+                    :default => Time.parse('7:00')
+  %p
+    = f.submit 'Add', id: 'add'
+    = link_to "Cancel", member_path(member), :class => 'button'

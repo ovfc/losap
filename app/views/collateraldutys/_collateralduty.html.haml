@@ -1,0 +1,21 @@
+%div{:id => "collateralduty_#{collateralduty.id}"}
+  = form_for([collateralduty.member, collateralduty], :remote => true, :method => :put) do |f|
+    - if collateralduty.deleted?
+      = f.hidden_field :deleted, :value => false
+      %span.deleted
+        = render :partial => "collateraldutys/times", :locals => {:collateralduty => collateralduty}
+      - unless collateralduty.locked?
+        (#{submit_link 'Undelete'})
+    - elsif collateralduty.short?
+      = f.hidden_field :deleted, :value => true
+      - @collateraldutywarning = true
+      %span.shortcollateralduty
+        = render :partial => "collateraldutys/times", :locals => {:collateralduty => collateralduty}
+      - unless collateralduty.locked?
+        (#{submit_link 'Delete'})
+      *
+    - else
+      = f.hidden_field :deleted, :value => true
+      = render :partial => "collateraldutys/times", :locals => {:collateralduty => collateralduty}
+      - unless collateralduty.locked?
+        (#{submit_link 'Delete'})

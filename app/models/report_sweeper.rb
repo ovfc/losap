@@ -1,10 +1,11 @@
 class ReportSweeper < ActionController::Caching::Sweeper
-  observe SleepIn, Standby
+  observe SleepIn, Standby, Collateralduty
   
   def expire_cached_report(s)
     month = case s
     when SleepIn then s.date.beginning_of_month
     when Standby then s.start_time.beginning_of_month.to_date
+    when Collateralduty then s.start_time.beginning_of_month.to_date
     else nil
     end
     

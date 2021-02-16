@@ -61,6 +61,8 @@ class SleepIn < ActiveRecord::Base
       date <=> obj.date
     elsif obj.is_a?(Standby)
       -1 * (obj <=> self)
+    elsif obj.is_a?(Collateralduty)
+      -1 * (obj <=> self)
     else
       nil
     end

@@ -5,4 +5,5 @@
 # (all these examples are active by default):
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'standby', 'standbys'
+  inflect.irregular 'collateralduty', 'collateraldutys'
 end

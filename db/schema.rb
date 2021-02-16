@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -17,8 +18,8 @@ ActiveRecord::Schema.define(:version => 20110529180302) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.datetime "last_request_at"
   end
 
@@ -30,30 +31,41 @@ ActiveRecord::Schema.define(:version => 20110529180302) do
   add_index "admins_roles", ["admin_id"], :name => "index_admins_roles_on_admin_id"
   add_index "admins_roles", ["role_id"], :name => "index_admins_roles_on_role_id"
 
+  create_table "collateraldutys", :force => true do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "member_id"
+    t.boolean  "deleted",    :default => false, :null => false
+  end
+
+  add_index "collateraldutys", ["member_id"], :name => "index_collateraldutys_on_member_id"
+
   create_table "locked_months", :force => true do |t|
     t.date     "month"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "members", :force => true do |t|
     t.string   "firstname"
     t.string   "lastname"
     t.string   "badgeno",    :limit => 6
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "sleep_ins", :force => true do |t|
     t.date     "date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.integer  "member_id"
     t.integer  "unit_type_id"
     t.boolean  "deleted",      :default => false, :null => false
@@ -65,8 +77,8 @@ ActiveRecord::Schema.define(:version => 20110529180302) do
   create_table "standbys", :force => true do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "member_id"
     t.boolean  "deleted",    :default => false, :null => false
   end
@@ -75,8 +87,8 @@ ActiveRecord::Schema.define(:version => 20110529180302) do
 
   create_table "unit_types", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

@@ -100,6 +100,12 @@ class Standby < ActiveRecord::Base
       else
         date <=> obj.date
       end
+    elsif obj.is_a?(Collateralduty)
+      if date == obj.date
+        -1
+      else
+        date <=> obj.date
+      end
     else
       nil
     end
