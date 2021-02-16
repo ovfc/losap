@@ -4,7 +4,7 @@ gem 'rails', '3.2.13'
 
 group :development, :test do
   gem 'debugger'
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.6'
   gem 'timecop'
   gem 'unicorn'
 end
@@ -29,6 +29,6 @@ gem 'decent_exposure', '<2.0'
 gem 'dynamic_form'
 gem 'haml'
 gem 'journey'
-gem 'jquery-rails'
+gem 'jquery-rails', "~> 2.3.0"
 gem 'yaml_db'
 gem 'will_paginate'
