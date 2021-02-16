@@ -32,7 +32,7 @@ class Member < ActiveRecord::Base
     elsif params[:year]
       sleep_ins = self.sleep_ins.by_year(params[:year])
       standbys = self.standbys.by_year(params[:year])
-      collateraldutys = self.by_year(params[:year])
+      collateraldutys = self.collateraldutys.by_year(params[:year])
     else
       return nil
     end
