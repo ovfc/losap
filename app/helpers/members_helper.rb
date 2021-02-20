@@ -55,15 +55,15 @@ module MembersHelper
         
         if list.first && list.first.date == o.date
           ret += "  <td>#{render :partial => list.shift}</td>\n"
-          ret += "  <td>#{render :partial => list.shift}</td>\n"
+          ret += "  <td>&nbsp;</td>\n"
         else
-          ret += "  <td>&nbsp;</td>"
+          ret += "  <td>&nbsp;</td>\n"
           ret += "  <td>&nbsp;</td>\n"
         end
       elsif o.is_a? Collateralduty
         ret += "  <td>&nbsp;</td>\n"
         ret += "  <td>" + render(:partial => o)
-        
+
         while (list.first and list.first.is_a?(Collateralduty) and
                 list.first.date == o.date) do
           ret += "<br/>\n" + render(:partial => list.shift)
@@ -78,7 +78,7 @@ module MembersHelper
       else
         ret += "  <td>&nbsp;</td>\n"
         ret += "  <td>&nbsp;</td>\n"
-        ret += "  <td>#{render :partial => o}</td>\n"
+        ret += "  <td>#{render :partial => o}</td>\n" 
       end
 
       ret += "</tr>\n"
