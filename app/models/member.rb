@@ -70,6 +70,17 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def sleep_in_hours(params={})
+  sleep_ins = nil
+  sleep_ins = self.sleep_ins.by_month(params[:month]) if params[:month]
+  sleep_ins = self.sleep_ins.by_year(params[:year]) if params[:year]
+  return nil if sleep_ins.nil?
+
+  sleep_ins.inject(0) do |total, s|
+    total + s.hours
+    end
+  end
+
   def standby_points(params={})
     standbys = nil
     standbys = self.standbys.by_month(params[:month]) if params[:month]
@@ -81,6 +92,17 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def standby_hours(params={})
+    standbys = nil
+    standbys = self.standbys.by_month(params[:month]) if params[:month]
+    standbys = self.standbys.by_year(params[:year]) if params[:year]
+    return nil if standbys.nil?
+
+    standbys.inject(0) do |total, s|
+      total + s.hours
+    end
+  end
+
   def collateralduty_points(params={})
     collateraldutys = nil
     collateraldutys = self.collateraldutys.by_month(params[:month]) if params[:month]
@@ -89,6 +111,17 @@ class Member < ActiveRecord::Base
 
     collateraldutys.inject(0) do |total, s|
       total + s.points
+    end
+  end
+  
+  def collateralduty_hours(params={})
+    collateraldutys = nil
+    collateraldutys = self.collateraldutys.by_month(params[:month]) if params[:month]
+    collateraldutys = self.collateraldutys.by_year(params[:year]) if params[:year]
+    return nil if collateraldutys.nil?
+
+    collateraldutys.inject(0) do |total, s|
+      total + s.hours
     end
   end
 end
