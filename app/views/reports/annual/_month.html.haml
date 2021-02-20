@@ -5,7 +5,7 @@
         = s.date.day.ordinalize + ":"
         - if s.is_a?(SleepIn)
           = s.unit + " Sleep-In"
-        - if s.is_a?(Standby)
+        - elsif s.is_a?(Standby)
           = "#{standby_time(s.start_time)} - #{standby_time(s.end_time)} Standby"
         - else
-          = "#{collateralduty_time(s.start_time)} - #{collateralduty_time(s.end_time)} Collateralduty"
+          = "#{collateralduty_time(s.start_time)} - #{collateralduty_time(s.end_time)} Collateral Duty"

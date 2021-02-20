@@ -1,0 +1,8 @@
+#annual_totals
+  %p
+    Year #{report.year.strftime("%Y")} totals: <br>
+    #{member.sleep_in_points(:year => report.year)} Sleep-In Points<br>
+    #{member.standby_points(:year => report.year)} Standby Points<br>
+    #{member.collateralduty_points(:year => report.year)} Collateral Duty Points<br>
+    #{member.hours(:year => report.year)} Hours<br>
+

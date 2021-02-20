@@ -17,3 +17,6 @@
   %tr
     - (7 .. 12).each do |n|
       = render(partial: 'reports/annual/month', locals: {member: member, n: n})
+
+%p
+= render :partial => "reports/annual/annual_totals", :locals => {:member => member, :year => report.year}

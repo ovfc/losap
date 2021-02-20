@@ -29,4 +29,8 @@ module ReportsHelper
   def standby_time(time)
     time.strftime('%H%M')
   end
+
+  def collateralduty_time(time)
+    time.strftime('%H%M')
+  end
 end
