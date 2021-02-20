@@ -4,7 +4,7 @@
 
 %h2 #{member.lastname}, #{member.firstname} (##{member.badgeno})
 %p The current time is #{Time.now.strftime("%H:%M")}
-%p Add Collateralduty:
+%p Add Collateral Duty:
 
 = form_for([member, collateralduty]) do |f|
   = f.error_messages

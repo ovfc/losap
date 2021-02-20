@@ -6,7 +6,7 @@
   %tr
     %th Date
     %th Standby
-    %th Collateralduty
+    %th Collateral Duty
     %th Sleep-In
     
   = raw render_sleep_ins_and_standbys_and_collateraldutys(member, month)
@@ -16,7 +16,7 @@
       %td &nbsp;
       %td= link_to "New Standby", new_member_standby_path(member), :class => 'button'
       %td= link_to "New Sleep-In", new_member_sleep_in_path(member), :class => 'button'
-      %td= link_to "New Collateralduty", new_member_collateralduty_path(member), :class => 'button'
+      %td= link_to "New Collateral Duty", new_member_collateralduty_path(member), :class => 'button'
 
 = render :partial => 'standbys/standby_warning'
 = render :partial => 'collateraldutys/collateralduty_warning'
