@@ -76,7 +76,7 @@ class Report
   end
   
   def hours(member)
-    traverse_hash(sleep_ins, member, :hours) + traverse_hash(standbys, member, :hours)
+    traverse_hash(sleep_ins, member, :hours) + traverse_hash(standbys, member, :hours) + traverse_hash(collateraldutys, member, :hours)
   end
 
   def monthly?
