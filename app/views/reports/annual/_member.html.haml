@@ -1,7 +1,9 @@
 #header
   %h1 #{member.lastname}, #{member.firstname} (##{member.badgeno})
   %h2 #{report.year.strftime("%Y")} LOSAP Annual Report
-  %p #{total_points(report, member)} Total LOSAP Points.
+  %p #{total_points(report, member)} Total LOSAP Points and #{member.hours(:year => report.year)} total hours. 
+  = render :partial => "reports/annual/annual_totals", :locals => {:member => member, :year => report.year}
+  <br>
   
 %table(id="data" border="1" cellspacing="0")
   %tr
@@ -17,6 +19,3 @@
   %tr
     - (7 .. 12).each do |n|
       = render(partial: 'reports/annual/month', locals: {member: member, n: n})
-
-%p
-= render :partial => "reports/annual/annual_totals", :locals => {:member => member, :year => report.year}
