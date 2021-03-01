@@ -4,7 +4,7 @@ class Collateralduty < ActiveRecord::Base
     attr_accessible :start_time, :end_time, :start_date, :end_date, :deleted, :member_id
   
     validates_presence_of :start_time
-    validate :no_overlap_with_existing_sleep_in, :no_future_months, :if => "self.start_time"
+    validate :no_overlap_with_existing_standby, :no_overlap_with_existing_sleep_in, :no_future_months, :if => "self.start_time"
     validate :start_before_end, :end_before_next_morning, :no_overlap,
              :if => "self.start_time and self.end_time"
     validate :unlocked
@@ -153,6 +153,20 @@ class Collateralduty < ActiveRecord::Base
     def no_future_months
       if start_time and start_time > Time.now.end_of_month
         errors.add(:start_time, "cannot be in a future month")
+      end
+    end
+
+    def no_overlap_with_existing_standby
+      self.member.standbys.find_by_date(self.date).each do |s|
+        unless s.end_time.nil? or self == s
+          if self.start_time.between?(s.start_time, s.end_time)
+            errors.add(:start_time, "cannot overlap with an existing Standby")
+          elsif self.end_time.between?(s.start_time, s.end_time)
+            errors.add(:end_time, "cannot overlap with an existing Standby")
+          elsif s.end_time.between?(self.start_time, self.end_time)
+            errors.add(:end_time, "cannot overlap with an existing Standby")
+          end
+        end
       end
     end
   
