@@ -74,7 +74,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     multi_json (1.15.0)
-    mysql2 (0.4.10)
+    mysql2 (0.3.21)
     polyglot (0.3.5)
     rack (1.4.7)
     rack-cache (1.7.1)
@@ -152,7 +152,7 @@ DEPENDENCIES
   journey
   jquery-rails (~> 2.3.0)
   libv8
-  mysql2
+  mysql2 (~> 0.3.10)
   rails (= 3.2.13)
   sass-rails
   sqlite3 (~> 1.3.6)
