@@ -11,15 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110529180302) do
+ActiveRecord::Schema.define(:version => 20210216022856) do
 
   create_table "admins", :force => true do |t|
     t.string   "username"
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "last_request_at"
   end
 
@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(:version => 20110529180302) do
   create_table "collateraldutys", :force => true do |t|
     t.datetime "start_time"
     t.datetime "end_time"
+    t.integer  "member_id"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
-    t.integer  "member_id"
     t.boolean  "deleted",    :default => false, :null => false
   end
 
@@ -44,28 +44,28 @@ ActiveRecord::Schema.define(:version => 20110529180302) do
 
   create_table "locked_months", :force => true do |t|
     t.date     "month"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "members", :force => true do |t|
     t.string   "firstname"
     t.string   "lastname"
     t.string   "badgeno",    :limit => 6
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sleep_ins", :force => true do |t|
     t.date     "date"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "member_id"
     t.integer  "unit_type_id"
     t.boolean  "deleted",      :default => false, :null => false
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(:version => 20110529180302) do
   create_table "standbys", :force => true do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "member_id"
     t.boolean  "deleted",    :default => false, :null => false
   end
@@ -87,8 +87,8 @@ ActiveRecord::Schema.define(:version => 20110529180302) do
 
   create_table "unit_types", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
