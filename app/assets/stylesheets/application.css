@@ -125,6 +125,14 @@ span.deleted {
   width: 400px;
 }
 
+.shortcollateralduty {
+  color: rgb(227, 141, 20);
+}
+
+#newcollateraldutydivider {
+  width: 400px;
+}
+
 .fieldWithErrors {
   padding: 2px;
   background-color: red;
